@@ -1,0 +1,90 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization.Formatters;
+using System.Text;
+using System.Threading.Tasks;
+using System.Web;
+
+namespace jun1
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Random random = new Random();
+            int oneOfSkills = random.Next(1, 5);
+            int heroHealth = 500;
+            int heroSkillAir = 80;
+            int heroSkillFire = 100;
+            int heroSkillWater = 100;
+            int heroSkillEarth = 150;
+            int enemyHealth = 1000;
+            int enemyDamage = 50;
+
+            Console.WriteLine("Ваше здоровье: " + heroHealth);
+            Console.WriteLine("Здоровье противника: " + enemyHealth);
+
+            while (heroHealth > 0 || enemyHealth > 0)
+            {
+                if (oneOfSkills == 1)
+                {
+                    enemyHealth -= heroSkillAir;
+                    heroHealth -= enemyDamage;
+                    Console.WriteLine("Применена магия воздуха");
+                    Console.WriteLine("Ваше здоровье: " + heroHealth);
+                    Console.WriteLine("Здоровье противника: " + enemyHealth);
+                    oneOfSkills = random.Next(1, 5);
+                }
+
+                else if (oneOfSkills == 2)
+                {
+                    enemyHealth -= heroSkillFire;
+                    heroHealth -= enemyDamage;
+                    Console.WriteLine("Применена магия огня");
+                    Console.WriteLine("Ваше здоровье: " + heroHealth);
+                    Console.WriteLine("Здоровье противника: " + enemyHealth);
+                    oneOfSkills = random.Next(1, 5);
+                }
+
+                else if (oneOfSkills == 3)
+                {
+                    enemyHealth -= heroSkillWater;
+                    heroHealth -= enemyDamage;
+                    Console.WriteLine("Применена магия воды");
+                    Console.WriteLine("Ваше здоровье: " + heroHealth);
+                    Console.WriteLine("Здоровье противника: " + enemyHealth);
+                    oneOfSkills = random.Next(1, 5);
+                }
+
+                else if (oneOfSkills == 4)
+                {
+                    enemyHealth -= heroSkillEarth;
+                    heroHealth -= enemyDamage;
+                    Console.WriteLine("Применена магия земли");
+                    Console.WriteLine("Ваше здоровье: " + heroHealth);
+                    Console.WriteLine("Здоровье противника: " + enemyHealth);
+                    oneOfSkills = random.Next(1, 5);
+                }
+
+                if (heroHealth <= 0 && enemyHealth > 0)
+                {
+                    Console.WriteLine("Босс победил, вы повержены");
+                    return;
+                }
+
+                else if (enemyHealth <= 0 && heroHealth > 0)
+                {
+                    Console.WriteLine("Ура! Вы победили босса!");
+                    return;
+                }
+
+                else if (enemyHealth <= 0 && heroHealth <= 0)
+                {
+                    Console.WriteLine("Ценой своей жизни вы одолели босса, теперь деревня в безопасности...");
+                    return;
+                }
+            }
+        }
+    }
+}
