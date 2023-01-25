@@ -13,62 +13,96 @@ namespace jun1
         static void Main(string[] args)
         {
             Random random = new Random();
-            int oneOfSkills = random.Next(1, 5);
+            
             int heroHealth = 500;
             int heroSkillAir = 80;
             int heroSkillFire = 100;
-            int heroSkillWater = 100;
+            int heroSkillWater = random.Next(20, 70);
             int heroSkillEarth = 150;
+            int heroSkillHeal = 125;
+            int toCallAir = 1;
+            int toCallFire = 2;
+            int toCallWater = 3;
+            int toCallEarth = 4;
+            int toCallHeal = 5;
             int enemyHealth = 1000;
-            int enemyDamage = 50;
+            int enemyMinDamage = 30;
+            int enemyMaxDamage = 100;
+            int enemyDamage = random.Next(enemyMinDamage, enemyMaxDamage);
+            int randomSkill = 6;
+            int healthToHeal = 200;
+            int oneOfSkills = random.Next(toCallAir, randomSkill);
 
             Console.WriteLine("Ваше здоровье: " + heroHealth);
             Console.WriteLine("Здоровье противника: " + enemyHealth);
 
             while (heroHealth > 0 || enemyHealth > 0)
             {
-                if (oneOfSkills == 1)
+                if (oneOfSkills == toCallAir)
                 {
                     enemyHealth -= heroSkillAir;
                     heroHealth -= enemyDamage;
-                    Console.WriteLine("Применена магия воздуха");
+                    Console.WriteLine("Вы призвали небольшое торнадо, которое засосало босса, пожевало и выплюнуло");
                     Console.WriteLine("Ваше здоровье: " + heroHealth);
                     Console.WriteLine("Здоровье противника: " + enemyHealth);
-                    oneOfSkills = random.Next(1, 5);
+                    oneOfSkills = random.Next(toCallAir, randomSkill);
                     Console.ReadKey();
                 }
 
-                else if (oneOfSkills == 2)
+                else if (oneOfSkills == toCallFire && enemyDamage >= 80)
                 {
                     enemyHealth -= heroSkillFire;
                     heroHealth -= enemyDamage;
-                    Console.WriteLine("Применена магия огня");
+                    Console.WriteLine("Вы разозлились и плюнули в босса лавой");
                     Console.WriteLine("Ваше здоровье: " + heroHealth);
                     Console.WriteLine("Здоровье противника: " + enemyHealth);
-                    oneOfSkills = random.Next(1, 5);
+                    oneOfSkills = random.Next(toCallAir, randomSkill);
                     Console.ReadKey();
                 }
-
-                else if (oneOfSkills == 3)
+                else
                 {
+                    oneOfSkills = random.Next(toCallAir, randomSkill);
+                }
+
+                if (oneOfSkills == toCallWater)
+                {
+                    Console.WriteLine("Вы призвали на голову босса градины размером с арбуз");
                     enemyHealth -= heroSkillWater;
-                    heroHealth -= enemyDamage;
-                    Console.WriteLine("Применена магия воды");
-                    Console.WriteLine("Ваше здоровье: " + heroHealth);
+                    heroSkillWater = random.Next(20, 70);
                     Console.WriteLine("Здоровье противника: " + enemyHealth);
-                    oneOfSkills = random.Next(1, 5);
+                    enemyHealth -= heroSkillWater;
+                    heroSkillWater = random.Next(20, 70);
+                    Console.WriteLine("Здоровье противника: " + enemyHealth);
+                    enemyHealth -= heroSkillWater;
+                    heroSkillWater = random.Next(20, 70);
+                    Console.WriteLine("Здоровье противника: " + enemyHealth);
+                    heroHealth -= enemyDamage;
+                    Console.WriteLine("Ваше здоровье: " + heroHealth);
+                    oneOfSkills = random.Next(toCallAir, randomSkill);
                     Console.ReadKey();
                 }
 
-                else if (oneOfSkills == 4)
+                else if (oneOfSkills == toCallEarth)
                 {
                     enemyHealth -= heroSkillEarth;
                     heroHealth -= enemyDamage;
-                    Console.WriteLine("Применена магия земли");
+                    Console.WriteLine("Вы возвели высокую гору под ногами босса, подняв его под небеса, которая в миг рассыпалась и уронила его на землю");
                     Console.WriteLine("Ваше здоровье: " + heroHealth);
                     Console.WriteLine("Здоровье противника: " + enemyHealth);
-                    oneOfSkills = random.Next(1, 5);
+                    oneOfSkills = random.Next(toCallAir, randomSkill);
                     Console.ReadKey();
+                }
+
+                else if (oneOfSkills == toCallHeal && heroHealth <= healthToHeal)
+                {
+                    heroHealth += heroSkillHeal;
+                    Console.WriteLine("Вы излечили себе 125 здоровья");
+                    oneOfSkills = random.Next(toCallAir, randomSkill);
+                    Console.ReadKey();
+                }
+                else
+                {
+                    oneOfSkills = random.Next(toCallAir, randomSkill);
                 }
 
                 if (heroHealth <= 0 && enemyHealth > 0)
