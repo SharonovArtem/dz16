@@ -25,32 +25,30 @@ namespace jun1
             int enemyHealthToDie = 0;
             int enemyDamageToFire = 50;
             int airDamageToWater = 100;
-            string toCallSkillAir = "1";
-            string toCallSkillFire = "2";
-            string toCallSkillWater = "3";
-            string toCallSkillEarth = "4";
-            string toHeal = "5";
+            string toCallSkillAirMenu = "1";
+            string toCallSkillFireMenu = "2";
+            string toCallSkillWaterMenu = "3";
+            string toCallSkillEarthMenu = "4";
+            string toHealMenu = "5";
             int enemyHealth = 1000;
             int enemyMinDamage = 30;
             int enemyMaxDamage = 80;
             int enemyDamage = random.Next(enemyMinDamage, enemyMaxDamage);
             int healthToHeal = 250;
-            string key;
-
+            string userInput;
             
-
             while (heroHealth > heroHealthToDie && enemyHealth > enemyHealthToDie)
             {
                 Console.WriteLine("Ваше здоровье: " + heroHealth);
                 Console.WriteLine("Здоровье противника: " + enemyHealth);
-                Console.WriteLine("Применить магию воздуха - " + toCallSkillAir);
-                Console.WriteLine("Применить магию огня - " + toCallSkillFire);
-                Console.WriteLine("Применить магию воды - 3" + toCallSkillWater);
-                Console.WriteLine("Применить магию земли - " + toCallSkillEarth);
-                Console.WriteLine("Полечиться - " + toHeal);
-                key = Console.ReadLine();
+                Console.WriteLine("Применить магию воздуха - " + toCallSkillAirMenu);
+                Console.WriteLine("Применить магию огня - " + toCallSkillFireMenu);
+                Console.WriteLine("Применить магию воды - " + toCallSkillWaterMenu);
+                Console.WriteLine("Применить магию земли - " + toCallSkillEarthMenu);
+                Console.WriteLine("Полечиться - " + toHealMenu);
+                userInput = Console.ReadLine();
 
-                if (key == toCallSkillAir)
+                if (userInput == toCallSkillAirMenu)
                 {
                     heroSkillAir = random.Next(airMinimalDamage, airMaximalDamage);
                     enemyHealth -= heroSkillAir;
@@ -60,7 +58,7 @@ namespace jun1
                     Console.WriteLine("Урона по вам " + enemyDamage);
                     enemyDamage = random.Next(enemyMinDamage, enemyMaxDamage);
                 }
-                else if (enemyDamage >= enemyDamageToFire && key == toCallSkillFire)
+                else if (enemyDamage >= enemyDamageToFire && userInput == toCallSkillFireMenu)
                 {
                     enemyHealth -= heroSkillFire;
                     heroHealth -= enemyDamage;
@@ -69,11 +67,11 @@ namespace jun1
                     Console.WriteLine("Урона по вам " + enemyDamage);
                     enemyDamage = random.Next(enemyMinDamage, enemyMaxDamage);
                 }
-                else if (enemyDamage < enemyDamageToFire && key == toCallSkillFire)
+                else if (enemyDamage < enemyDamageToFire && userInput == toCallSkillFireMenu)
                 {
                     Console.WriteLine("Недостаточно ярости");
                 }
-                else if (heroSkillAir >= airDamageToWater && key == toCallSkillWater)
+                else if (heroSkillAir >= airDamageToWater && userInput == toCallSkillWaterMenu)
                 {
                     int waterMininmalDamage = 20;
                     int waterMaximalDamage = 70;
@@ -95,11 +93,11 @@ namespace jun1
                     heroHealth -= enemyDamage;
                     enemyDamage = random.Next(enemyMinDamage, enemyMaxDamage);
                 }
-                else if (heroSkillAir < airDamageToWater && key == toCallSkillWater)
+                else if (heroSkillAir < airDamageToWater && userInput == toCallSkillWaterMenu)
                 {
                     Console.WriteLine("Недостаточно ветра для заморозки воды");
                 }
-                else if (key == toCallSkillEarth)
+                else if (userInput == toCallSkillEarthMenu)
                 {
                     enemyHealth -= heroSkillEarth;
                     heroHealth -= enemyDamage;
@@ -108,7 +106,7 @@ namespace jun1
                     Console.WriteLine("Урона по вам " + enemyDamage);
                     enemyDamage = random.Next(enemyMinDamage, enemyMaxDamage);
                 }
-                else if (heroHealth <= healthToHeal && key == toHeal)
+                else if (heroHealth <= healthToHeal && userInput == toHealMenu)
                 {
                     int heroSkillHeal = 125;
                     heroHealth += heroSkillHeal;
@@ -121,7 +119,7 @@ namespace jun1
 
                     enemyDamage = random.Next(enemyMinDamage, enemyMaxDamage);
                 }
-                else if (heroHealth > healthToHeal && key == toHeal)
+                else if (heroHealth > healthToHeal && userInput == toHealMenu)
                 {
                     heroHealth -= enemyDamage;
 
@@ -133,20 +131,17 @@ namespace jun1
                 }
             }
 
-            if (heroHealth <= heroHealthToDie && enemyHealth > enemyHealthToDie)
+            if (heroHealth <= heroHealthToDie)
             {
-                Console.WriteLine("Босс победил, вы повержены");
-                return;
+                Console.WriteLine("Босс победил, вы повержены");                
             }
-            else if (enemyHealth <= enemyHealthToDie && heroHealth > heroHealthToDie)
+            else if (enemyHealth <= enemyHealthToDie)
             {
-                Console.WriteLine("Ура! Вы победили босса!");
-                return;
+                Console.WriteLine("Ура! Вы победили босса!");                
             }
             else if (enemyHealth <= enemyHealthToDie && heroHealth <= heroHealthToDie)
             {
                 Console.WriteLine("Ценой своей жизни вы одолели босса, теперь деревня в безопасности...");
-                return;
             }
         }
     }
